@@ -1,0 +1,17 @@
+name: Example Deployment
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Tag the deployment
+        uses: daily-co/create-tag-action@v1.0
+        with:
+          app-name: 'my-application'
+          environment: 'deployment-1'
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
