@@ -1,18 +1,17 @@
-name: Bump version
-on:
-  push:
-    branches:
-      - master
+name: App Version Actions
+on: [push, pull_request]  # Recommended to use either of one event
+
 jobs:
-  build:
+  Version-check:
     runs-on: ubuntu-latest
+    name: Bump-N-Tag Version
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@master
+    - name: Increment version
+      id: version   
+      uses: vinodhraj/Bump-N-Tag-Version@master
       with:
-        fetch-depth: '0'
-    
-    - name: Bump version and push tag
-      uses: moble/github-tag-action@main
+        file_name: './VERSION'
+        tag_version: "false"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        WITH_V: true

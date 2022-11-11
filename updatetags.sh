@@ -9,10 +9,10 @@ echo "================================="
 for tag in "${tags[@]}"
 do
   hash=${commit_hashes[COUNTER]}
-  if [[ "${tag}" != cp_3.8.12.9-* ]]
+  if [[ "${tag}" != cloud-* ]]
   then
-    echo "Add new tag 'cp_3.8.12.9-${tag}' to local repo on commit ${hash}"
-    eval "git tag cp_3.8.12.9-${tag} ${hash}"
+    echo "Add new tag 'cloud-${tag}' to local repo on commit ${hash}"
+    eval "git tag cloud-${tag} ${hash}"
 
     echo "Delete old tag '${tag}' from local"
     eval "git tag --delete ${tag}"
