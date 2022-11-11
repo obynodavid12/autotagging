@@ -181,6 +181,7 @@ if [ -z "$NEEDSTAG" ]; then
         VNUM3=$((VNUM3+1))
     fi
 
+    
     # Create new tag number
     NEWTAG="v$VNUM1.$VNUM2.$VNUM3"
     conditional_echo "-- Release number: $NEWTAG"
