@@ -1,6 +1,6 @@
 #!/bin/bash
 ARGUMENTS="$@"
-BRANCH="main"
+BRANCH="master"
 DRYRUN="0"
 GITPARAMS=()
 RELEASEDATE=$(date '+%Y%m%d')
