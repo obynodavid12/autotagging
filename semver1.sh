@@ -7,7 +7,7 @@
 # PATCH version when you make backwards-compatible bug fixes. (fix|patch|docs|style|refactor|perf|test|chore)
 GIT_REV_LIST=`git rev-list --tags --max-count=1`
 GIT_REV_LAST=`git rev-parse HEAD`
-VERSION='3.8.12.0'
+VERSION='3.8.12.4'
 if [[ -n $GIT_REV_LIST ]]; then
     VERSION=`git describe --tags $GIT_REV_LIST`
 fi
@@ -45,5 +45,5 @@ fi
 # count all commits for a branch
 GIT_COMMIT_COUNT=`git rev-list --count HEAD`
 #create new tag
-NEW_TAG="$VNUM1.$VNUM2.$VNUM3..$VNUM4"
+NEW_TAG="$VNUM1.$VNUM2.$VNUM3.$VNUM4"
 echo $NEW_TAG
