@@ -1,43 +1,67 @@
 #!/bin/bash
 
-if [[ -z "$1" ]]; then
-    echo "ERROR: arg must be a description of the release in quotes"
-    exit 1
+# This script will be executed after commit in placed in .git/hooks/post-commit
+
+# Semantic Versioning 2.0.0 guideline
+# 
+# Given a version number MAJOR.MINOR.PATCH, increment the:
+# MAJOR version when you make incompatible API changes,
+# MINOR version when you add functionality in a backwards-compatible manner, and
+# PATCH version when you make backwards-compatible bug fixes.
+
+echo "Starting the tagging process based on commit message +semver: xxxxx"
+
+#get highest tags across all branches, not just the current branch
+VERSION=`git describe --tags $(git rev-list --tags --max-count=1)`
+
+# split into array
+VERSION_BITS=(${VERSION//./ })
+
+echo "Latest version tag: $VERSION"
+
+#get number parts and increase last one by 1
+VNUM1=${VERSION_BITS[0]}
+VNUM2=${VERSION_BITS[1]}
+VNUM3=${VERSION_BITS[2]}
+VNUM4=${VERSION_BITS[3]}
+# VNUM4=$((VNUM4+1))
+
+# Taken from gitversion
+# major-version-bump-message: '\+semver:\s?(breaking|major)'
+# minor-version-bump-message: '\+semver:\s?(feature|minor)'
+# patch-version-bump-message: '\+semver:\s?(fix|patch)'
+# get last commit message and extract the count for "semver: (major|minor|patch|build)"
+COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR=`git log -1 --pretty=%B | egrep -c '\+semver:\s?(breaking|major)'`
+COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR=`git log -1 --pretty=%B | egrep -c '\+semver:\s?(feature|minor)'`
+COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH=`git log -1 --pretty=%B | egrep -c '\+semver:\s?(fix|patch)'`
+COUNT_OF_COMMIT_MSG_HAVE_SEMVER_BUILD=`git log -1 --pretty=%B | egrep -c '\+semver:\s?(fix|build)'`
+
+if [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR -gt 0 ]; then
+    VNUM1=$((VNUM1+1)) 
 fi
-DESCRIPTION=$1
+if [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR -gt 0 ]; then
+    VNUM2=$((VNUM2+1)) 
+fi
+if [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH -gt 0 ]; then
+    VNUM3=$((VNUM3+1)) 
+fi
+if [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_BUILD -gt 0 ]; then
+    VNUM3=$((VNUM4+1))
+fi
+# count all commits for a branch
+GIT_COMMIT_COUNT=`git rev-list --count HEAD`
+echo "Commit count: $GIT_COMMIT_COUNT" 
+export BUILD_NUMBER=$GIT_COMMIT_COUNT
 
-# ensure local tags are current
-git fetch --tags origin
+#create new tag
+NEW_TAG="$VNUM1.$VNUM2.$VNUM3.$VNUM4"
 
-#get highest tag number
-HIGHESTVERSION=$(git tag -l --sort -version:refname | head -n 1 2> /dev/null) 
-set -e
-VERSION=${HIGHESTVERSION:-'v0.0.0.0'}
+echo "Updating $VERSION to $NEW_TAG"
 
-REMOVE="${VERSION%%v*}"; VERSION="${VERSION#*v}"
-MAJOR="${VERSION%%.*}"; VERSION="${VERSION#*.}"
-MINOR="${VERSION%%.*}"; VERSION="${VERSION#*.}"
-PATCH="${VERSION%%.*}"; VERSION="${VERSION#*.}"
-BUILD="${VERSION%%.*}"; VERSION="${VERSION#*.}"
-
-#Increase version
-BUILD=$((BUILD+1))
-
-#Get current hash and see if it already has a tag
-GIT_COMMIT=$(git rev-parse HEAD)
-NEEDS_TAG=$(git describe --contains $GIT_COMMIT 2> /dev/null) && exit_status=0 || exit_status=$?
-
-#Only tag if no tag already (would be better if the git describe command above could have a silent option)
-if [[ -z "$NEEDS_TAG" && ! $exit_status -eq 0 ]]; then
-    #Create new tag
-    NEW_TAG="v$MAJOR.$MINOR.$PATCH.$BUILD"
-    echo "Updating to $NEW_TAG"
-    git tag -a $NEW_TAG -m "$DESCRIPTION"
-    echo "Tagged with $NEW_TAG"
-    git push origin $NEW_TAG
-    git -c advice.detachedHead=false checkout $NEW_TAG
-    echo "Checkout release"
-    git checkout $NEW_TAG
+#only tag if commit message have version-bump-message as mentioned above
+if [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR -gt 0 ] ||  [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR -gt 0 ] || [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH -gt 0 ]; || [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_BUILD -gt 0 ];then
+    echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
+    git tag "$NEW_TAG"
 else
-    echo "Already a tag $HIGHESTVERSION on this commit"
-fi
+    echo "Already a tag on this commit"
+fi
