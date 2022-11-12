@@ -59,7 +59,7 @@ NEW_TAG="$VNUM1.$VNUM2.$VNUM3.$VNUM4"
 echo "Updating $VERSION to $NEW_TAG"
 
 #only tag if commit message have version-bump-message as mentioned above
-if [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR -gt 0 ] ||  [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR -gt 0 ] || [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH -gt 0 ]; || [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_BUILD -gt 0 ];then
+if [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MAJOR -gt 0 ] ||  [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_MINOR -gt 0 ] || [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_PATCH -gt 0 ] || [ $COUNT_OF_COMMIT_MSG_HAVE_SEMVER_BUILD -gt 0 ]; then
     echo "Tagged with $NEW_TAG (Ignoring fatal:cannot describe - this means commit is untagged) "
     git tag "$NEW_TAG"
 else
