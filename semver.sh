@@ -72,3 +72,6 @@ if [ -z "$CURRENT_COMMIT_TAG" ]; then
 else
     echo "This commit is already tagged as: $CURRENT_COMMIT_TAG"
 fi
+esac
+shift
+done
