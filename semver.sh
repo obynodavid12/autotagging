@@ -1,6 +1,8 @@
 #!/bin/bash
 
 RELEASEDATE=$(date '+%Y%m%d')
+echo $RELEASEDATE
+
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
