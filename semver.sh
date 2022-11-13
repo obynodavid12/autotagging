@@ -1,6 +1,47 @@
 #!/bin/bash
 
 RELEASEDATE=$(date '+%Y%m%d')
+GIT_COMMIT=""
+VERSION=""
+VERBOSE="0"
+
+
+conditional_echo() {
+    if [[ "$RUNQUIET" -eq 0 ]]; then
+        echo "$1"
+    fi
+}
+
+while [[ "$#" -gt 0 ]]
+do
+    case $1 in
+      -b|--branch)
+        BRANCH=$2
+        ;;
+      -d|--date)
+        RELEASEDATE=$2
+        ;;
+      -p|--previous)
+        GIT_COMMIT=$2
+        ;;
+      -t|--type)
+        VERSION=$2
+        ;;
+      -q|--quiet)
+        RUNQUIET="1"
+        ;;
+      -v|--verbose)
+        # See if a second argument is passed, due to argument reassignment to -v.
+        if [[ "$1" == "-v" ]] && [[ -n "$2" ]]; then
+            echo "ERROR: Unsupported value \"$2\" passed to -v argument. If trying to set semantic version tag, use the -t or --type argument".
+            exit
+        fi
+        VERBOSE="1"
+        ;;
+    esac
+    shift
+done
+
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
