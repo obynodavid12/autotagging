@@ -12,7 +12,7 @@ do
   if [[ "${tag}" != v3.8.12.8-* ]]
   then
     echo "Add new tag 'v3.8.12.8-${tag}' to local repo on commit ${hash}"
-    eval "git tag cloud-${tag} ${hash}"
+    eval "git tag v3.8.12.8-${tag} ${hash}"
 
     echo "Delete old tag '${tag}' from local"
     eval "git tag --delete ${tag}"
