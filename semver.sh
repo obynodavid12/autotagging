@@ -1,52 +1,10 @@
 #!/bin/bash
-
-RELEASEDATE=$(date '+%Y%m%d')
-GIT_COMMIT=""
-VERSION=""
-VERBOSE="0"
-
-
-conditional_echo() {
-    if [[ "$RUNQUIET" -eq 0 ]]; then
-        echo "$1"
-    fi
-}
-
-while [[ "$#" -gt 0 ]]
-do
-    case $1 in
-      -b|--branch)
-        BRANCH=$2
-        ;;
-      -d|--date)
-        RELEASEDATE=$2
-        ;;
-      -p|--previous)
-        GIT_COMMIT=$2
-        ;;
-      -t|--type)
-        VERSION=$2
-        ;;
-      -q|--quiet)
-        RUNQUIET="1"
-        ;;
-      -v|--verbose)
-        # See if a second argument is passed, due to argument reassignment to -v.
-        if [[ "$1" == "-v" ]] && [[ -n "$2" ]]; then
-            echo "ERROR: Unsupported value \"$2\" passed to -v argument. If trying to set semantic version tag, use the -t or --type argument".
-            exit
-        fi
-        VERBOSE="1"
-        ;;
-    esac
-    shift
-done
-
+DATE=$(git log -n 1 --pretty=format:"%ad" --date=iso)
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
 if [ -z $VERSION ];then
-    NEW_TAG="v3.8.12.7.0"
+    NEW_TAG="x1b3.8.12.7.0"
     echo "No tag present."
     echo "Creating tag: $NEW_TAG"
     git tag $NEW_TAG
@@ -67,7 +25,7 @@ VNUM5=${VERSION_BITS[4]}
 VNUM5=$((VNUM5+1))
 
 #create new tag
-NEW_TAG="v${VNUM1}.${VNUM2}.${VNUM3}.${VNUM4}.${VNUM5}"
+NEW_TAG="x1b${VNUM1}.${VNUM2}.${VNUM3}.${VNUM4}.${VNUM5}_hotfixes"
 
 #get current hash and see if it already has a tag
 GIT_COMMIT=`git rev-parse HEAD`
@@ -76,10 +34,11 @@ CURRENT_COMMIT_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 #only tag if no tag already (would be better if the git describe command above could have a silent option)
 if [ -z "$CURRENT_COMMIT_TAG" ]; then
     echo "Updating $VERSION to $NEW_TAG"
-    git tag -a $NEW_TAG -m "$RELEASEDATE:$VNUM1.$VNUM2.$VNUM3.$VNUM4.$VNUM5" -m"$GIT_COMMIT"
+    git tag -a $NEW_TAG -m "DATE"
     git push --tags
     echo "Tag created and pushed: $NEW_TAG"
 else
     echo "This commit is already tagged as: $CURRENT_COMMIT_TAG"
 fi
+
 
