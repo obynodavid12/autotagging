@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
  name: App Version Actions
  on: [push, pull_request]  # Recommended to use either of one event
 
@@ -16,22 +16,5 @@
          tag_version: "true"
        env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-=======
-name: App Version Actions
-on: [push, pull_request]  # Recommended to use either of one event
 
-jobs:
-  Version-check:
-    runs-on: ubuntu-latest
-    name: Bump-N-Tag Version
-    steps:
-    - uses: actions/checkout@master
-    - name: Increment version
-      id: version   
-      uses: vinodhraj/Bump-N-Tag-Version@master
-      with:
-        file_name: './VERSION'
-        tag_version: "true"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
->>>>>>> 40e5ea8ff71cfd7636ba45e63f13ee096f4648c3
+ 
