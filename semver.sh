@@ -26,7 +26,7 @@ VNUM5=${VERSION_BITS[4]}
 VNUM5=$((VNUM5+1))
 
 #create new tag
-NEW_TAG="v${VNUM1}.${VNUM2}.${VNUM3}.${VNUM4}.${VNUM5}_hotfixes"
+NEW_TAG="v${VNUM1}.${VNUM2}.${VNUM3}.${VNUM4}.${VNUM5}"
 
 #get current hash and see if it already has a tag
 GIT_COMMIT=`git rev-parse HEAD`
@@ -35,9 +35,10 @@ CURRENT_COMMIT_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 #only tag if no tag already (would be better if the git describe command above could have a silent option)
 if [ -z "$CURRENT_COMMIT_TAG" ]; then
     echo "Updating $VERSION to $NEW_TAG"
-    git tag -a $NEW_TAG -m"$RELEASEDATE: Release $VNUM1.$VNUM2.$VNUM3.$VNUM4.$VNUM5" -m"$GIT_COMMIT
+    git tag -a $NEW_TAG -m"$RELEASEDATE: Release $VNUM1.$VNUM2.$VNUM3.$VNUM4.$VNUM5" -m"$GIT_COMMIT"
     git push --tags
     echo "Tag created and pushed: $NEW_TAG"
 else
     echo "This commit is already tagged as: $CURRENT_COMMIT_TAG"
 fi
+
