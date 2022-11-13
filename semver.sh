@@ -1,6 +1,6 @@
 #!/bin/bash
-RELEASEDATE=$(date '+%Y%m%d')
-echo "$RELEASEDATE"
+NOW=`date +"%Y-%m-%d %H:%M:%S"`
+tstamp_fmt=`date --date="$tstamp" +"%Y-%m-%d %H:%M:%S"`
 
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
@@ -9,7 +9,7 @@ if [ -z $VERSION ];then
     NEW_TAG="v3.8.12.7.0"
     echo "No tag present."
     echo "Creating tag: $NEW_TAG"
-    git tag $NEW_TAG -m "$RELEASEDATE"
+    git tag $NEW_TAG --date $tstamp
     git push --tags
     echo "Tag created and pushed: $NEW_TAG"
     exit 0;
