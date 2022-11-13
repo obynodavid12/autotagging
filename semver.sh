@@ -1,5 +1,4 @@
 #!/bin/bash
-
 RELEASEDATE=$(date '+%Y%m%d')
 echo "$RELEASEDATE"
 
