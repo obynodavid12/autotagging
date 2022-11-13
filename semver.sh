@@ -1,5 +1,5 @@
 #!/bin/bash
-DATE=$(git log -n 1 --pretty=format:"%ad" --date=iso)
+
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
@@ -34,7 +34,7 @@ CURRENT_COMMIT_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 #only tag if no tag already (would be better if the git describe command above could have a silent option)
 if [ -z "$CURRENT_COMMIT_TAG" ]; then
     echo "Updating $VERSION to $NEW_TAG"
-    git tag $NEW_TAG -m "$DATE"
+    git tag $NEW_TAG -m "$DATE=$(git log -n 1 --pretty=format:"%ad" --date=iso)"
     git push --tags
     echo "Tag created and pushed: $NEW_TAG"
 else
