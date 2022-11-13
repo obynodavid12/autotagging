@@ -2,12 +2,41 @@
 
 RELEASEDATE=$(date '+%Y%m%d')
 RELEASENOTES=""
+GIT_COMMIT=""
+VERSION=""
 
+conditional_echo() {
+    if [[ "$RUNQUIET" -eq 0 ]]; then
+        echo "$1"
+    fi
+}
+
+while [[ "$#" -gt 0 ]]
+do
+    case $1 in
+      -d|--date)
+        RELEASEDATE=$2
+        ;;
+      -m|--message)
+        RELEASENOTES=$2
+        ;;
+      -p|--previous)
+        GIT_COMMIT=$2
+        ;;
+      -t|--type)
+        VERSIONTYPE=$2
+        ;;
+      -v|--verbose)
+        # See if a second argument is passed, due to argument reassignment to -v.
+        if [[ "$1" == "-v" ]] && [[ -n "$2" ]]; then
+            echo "ERROR: Unsupported value \"$2\" passed to -v argument. If trying to set semantic version tag, use the -t or --type argument".
+            exit
+        fi
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
 if [ -z $VERSION ];then
-    NEW_TAG="v3.8.12.7.0"
+    NEW_TAG="3.8.12.7.0"
     echo "No tag present."
     echo "Creating tag: $NEW_TAG"
     git tag $NEW_TAG
