@@ -7,7 +7,7 @@ branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
 versionLabel=v$1
 
 # establish branch and tag name variables
-devBranch=develop
+#devBranch=develop
 masterBranch=master
 releaseBranch=release-$versionLabel
  
