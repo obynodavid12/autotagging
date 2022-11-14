@@ -9,6 +9,8 @@ on:
 jobs:
   Auto-tagging:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.PAT }}
     steps:
       - name: Checkout branch master 
       - uses: actions/checkout@v3
