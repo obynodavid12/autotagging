@@ -1,0 +1,41 @@
+# name: Git-Tag Version Actions
+# on: 
+#  push: 
+#    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
+#    paths:
+#      - 'deployment-1'
+     
+
+# jobs:
+#   Auto-tagging:
+#     runs-on: ubuntu-latest
+#     steps: 
+#     - name: Checkout
+#       uses: actions/checkout@v3
+#       with:
+#         fetch-depth: '0'
+
+#     - name: Run script file
+#       run: |
+#          chmod +x ./scripts/semver.sh
+#          ./scripts/semver.sh
+#       shell: bash
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
