@@ -7,7 +7,7 @@ if [ -z $VERSION ];then
     NEW_TAG="v3.8.12.7.0"
     echo "No tag present."
     echo "Creating tag: $NEW_TAG"
-    git tag $NEW_TAG -a "Release1-`git show -s --format=%ct HEAD`"
+    git tag -a $NEW_TAG -m "Release1-`git show -s --format=%ct HEAD`"
     git push --tags
     echo "Tag created and pushed: $NEW_TAG"
     exit 0;
@@ -34,7 +34,7 @@ CURRENT_COMMIT_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 #only tag if no tag already (would be better if the git describe command above could have a silent option)
 if [ -z "$CURRENT_COMMIT_TAG" ]; then
     echo "Updating $VERSION to $NEW_TAG"
-    git tag $NEW_TAG -a "Release1-`git show -s --format=%ct HEAD`"
+    git tag -a $NEW_TAG -m "Release1-`git show -s --format=%ct HEAD`"
     git push --tags
     echo "Tag created and pushed: $NEW_TAG"
 else
