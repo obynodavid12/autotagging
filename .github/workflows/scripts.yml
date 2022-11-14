@@ -12,7 +12,6 @@ jobs:
     steps:
       - name: Checkout branch master 
       - uses: actions/checkout@v3
-
       - name: Create tag
         uses: actions/github-script@v5
         with:
