@@ -7,7 +7,7 @@ if [ -z $VERSION ];then
     NEW_TAG="v3.8.12.7.0"
     echo "No tag present."
     echo "Creating tag: $NEW_TAG"
-    git tag $NEW_TAG 
+    git tag $NEW_TAG -a "Release1-`git show -s --format=%ct HEAD`"
     git push --tags
     echo "Tag created and pushed: $NEW_TAG"
     exit 0;
