@@ -7,10 +7,10 @@ if [ -z $VERSION ];then
     NEW_TAG="y1b-3.8.11.1.0"
     RELEASEDATE="$(date '+%Y%m%d%H%M')_y1b-3.8.11.1.0"
     echo "No tag present."
-    echo "Creating tag: $NEW_TAG_$RELEASEDATE"
-    git tag $NEW_TAG_$RELEASEDATE 
+    echo "Creating tag: $NEW_TAG"
+    git tag $NEW_TAG
     git push --tags
-    echo "Tag created and pushed: $NEW_TAG_$RELEASEDATE"
+    echo "Tag created and pushed: $NEW_TAG"
     exit 0;
 fi
 
