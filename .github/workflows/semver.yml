@@ -5,23 +5,54 @@ on:
  pull_request:
    branches: [ master ]
    paths:
-     - 'deployment-1'
+     - 'deployment-1/**'
+     - 'deployment-2/**'
      
 
 jobs:
-  Auto-tagging:
+  changes:
+    name: Detect Changes in folder
     runs-on: ubuntu-latest
-    steps: 
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: '0'
+    outputs:
+      names: ${{ steps.filter.outputs.changes }}
 
-    - name: Run script file
-      run: |
+    steps:
+    - uses: actions/checkout@v3
+    - name: Detect Changes
+      uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          deployment-1:
+            - 'deployment-1/**'
+          deployment-2:
+            - 'deployment-2/**'    
+  deploy:
+    needs: changes
+    if: ${{ needs.changes.outputs.names != '[]' }}
+    name:  ${{matrix.name}} - ${{ matrix.environment }}
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+         name: ${{ fromJSON(needs.changes.outputs.names) }}
+         environment: [ test,prod]
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ matrix.name }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+         fetch-depth: '20'
+
+      - name: Checking the folder name
+        run: |
+         echo "Running for folder ${{ matrix.name }}"   
          chmod +x ./semver.sh
-         ./semver.sh
-      shell: bash
+         ./semver.sh       
+
+  
     
     
 
