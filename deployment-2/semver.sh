@@ -4,10 +4,9 @@
 VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
 if [ -z $VERSION ];then
-    NEW_TAG=""
+    NEW_TAG="x1b-3.8.11.1.0"
     echo "No tag present."
     echo "Creating tag: $NEW_TAG"
-    git pull --tags -f
     git tag $NEW_TAG 
     git push --tags
     echo "Tag created and pushed: $NEW_TAG"
@@ -18,11 +17,11 @@ fi
 VERSION_BITS=(${VERSION//./ })
 
 #get number parts and increase last one by 1
-VNUM1=${VERSION_BITS[0]}
-VNUM2=${VERSION_BITS[1]}
-VNUM3=${VERSION_BITS[2]}
-VNUM4=${VERSION_BITS[3]}
-VNUM5=${VERSION_BITS[4]}
+VNUM1=${VERSION_BITS[0]//[^0-9]/}
+VNUM2=${VERSION_BITS[1]//[^0-9]/}
+VNUM3=${VERSION_BITS[2]//[^0-9]/}
+VNUM4=${VERSION_BITS[3]//[^0-9]/}
+VNUM5=${VERSION_BITS[4]//[^0-9]/}
 VNUM5=$((VNUM5+1))
 
 #create new tag
