@@ -32,7 +32,7 @@ VNUM5=${CURRENT_VERSION_PARTS[4]}
 VNUM5=$((VNUM5+1))
 
 #create new tag
-NEW_TAG="x1b-$VNUM1.$VNUM2.$VNUM3.${VNUM4}.${VNUM5}"
+NEW_TAG="$VNUM1.$VNUM2.$VNUM3.${VNUM4}.${VNUM5}"
 echo "($VERSION) updating $CURRENT_VERSION to $NEW_TAG"
 
 #get current hash and see if it already has a tag
