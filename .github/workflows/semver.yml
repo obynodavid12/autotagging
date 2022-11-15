@@ -50,7 +50,10 @@ jobs:
         run: |
          echo "Running for folder ${{ matrix.name }}"   
          chmod +x ./semver.sh
-         ./semver.sh       
+         ./semver.sh  
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+     
 
   
     
