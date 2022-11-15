@@ -4,8 +4,8 @@
 VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
 if [ -z $VERSION ];then
-    NEW_TAG_RELEASEDATE="y1b-3.8.11.1.0_$(date '+%Y%m%d%H%M')"
-    #RELEASEDATE=$(date '+%Y%m%d%H%M')
+    NEW_TAG="y1b-3.8.11.1.0"
+    RELEASEDATE=$(date '+%Y%m%d%H%M')
     echo "No tag present."
     echo "Creating tag: $NEW_TAG_$RELEASEDATE"
     git tag $NEW_TAG_$RELEASEDATE 
@@ -35,9 +35,9 @@ CURRENT_COMMIT_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 #only tag if no tag already (would be better if the git describe command above could have a silent option)
 if [ -z "$CURRENT_COMMIT_TAG" ]; then
     echo "Updating $VERSION to $NEW_TAG"
-    git tag $NEW_TAG_$RELEASEDATE
+    git tag -a $NEW_TAG -m"$RELEASEDATE: Release $VNUM1.$VNUM2.$VNUM3.${VNUM4}.${VNUM5}"
     git push --tags
-    echo "Tag created and pushed: $NEW_TAG_$RELEASEDATE"
+    echo "Tag created and pushed: $NEW_TAG"
 else
     echo "This commit is already tagged as: $CURRENT_COMMIT_TAG"
 fi
