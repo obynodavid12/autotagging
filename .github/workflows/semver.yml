@@ -46,17 +46,6 @@ jobs:
         with:
          fetch-depth: '0'
       
-      - name: Install Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
-      
-      - name: Install npm dependencies
-        run: | 
-           npm install
-           npm init
-           npm init -y   
-
       - name: Checking the folder name
         run: |
          echo "Running for folder ${{ matrix.name }}"   
