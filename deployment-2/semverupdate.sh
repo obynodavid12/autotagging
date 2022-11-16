@@ -11,7 +11,7 @@ do
 done
 
 #get highest tag number, and add 1.0.0 if doesn't exist
-CURRENT_VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
+CURRENT_VERSION=`git describe --abbrev=0 --tags always 2>/dev/null` 
 
 if [[ $CURRENT_VERSION == '' ]]
 then
@@ -42,7 +42,8 @@ NEEDS_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 #only tag if no tag already
 #to publish, need to be logged in to npm, and with clean working directory: `npm login; git stash`
 if [ -z "$NEEDS_TAG" ]; then
-  git tag $NEW_TAG
+  npm version $NEW_TAG
+  npm publish --access public
   echo "Tagged with $NEW_TAG"
   git push --tags
   git push
