@@ -35,7 +35,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-         name: ${{ fromJSON(needs.changes.outputs.names) }}
+         name: ${{fromJson(needs.changes.outputs.names)}}
          environment: [ prod ]
     defaults:
       run:
