@@ -46,7 +46,6 @@ jobs:
         with:
          fetch-depth: '0'
       
-      - uses: actions/checkout@v1
       - name: Install Node.js
         uses: actions/setup-node@v1
         with:
