@@ -47,7 +47,7 @@ jobs:
       id: version   
       uses: vinodhraj/Bump-N-Tag-Version@master
       with:
-        file_name: 'VERSION'
+        file_name: '${{ matrix.name }}/VERSION'
         tag_version: "true"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
