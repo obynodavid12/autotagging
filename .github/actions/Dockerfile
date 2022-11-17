@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM alpine:3.14
+FROM alpine:3.10
 
 # Install git package
 #RUN apt-get update && apt-get install -y --no-install-recommends -y git
