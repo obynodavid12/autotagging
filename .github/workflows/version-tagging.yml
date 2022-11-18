@@ -45,7 +45,7 @@ jobs:
     - uses: actions/checkout@master
     - name: Increment version
       id: version   
-      uses: /.github/actions/
+      uses: ./.github/actions/
       with:
         file_name: '${{ matrix.name }}/VERSION'
         tag_version: "true"
