@@ -49,6 +49,7 @@ if [ -z "$NEEDS_TAG" ]; then
 else
   echo "Already a tag on this commit"
 fi
+
 exit 0
 
 
