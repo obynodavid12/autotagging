@@ -9,7 +9,7 @@ inputs:
   file_name:  # id of input
     description: 'Name of the version file'
     required: true
-    default: 'version'
+    default: ''
   tag_version: # id
     description: 'States whether to create tag for this version or not'
     required: false
@@ -23,4 +23,3 @@ runs:
   args:
     - ${{ inputs.file_name }} 
     - ${{ inputs.tag_version }}
-    
