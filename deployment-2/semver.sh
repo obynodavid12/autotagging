@@ -33,6 +33,7 @@ NEW_TAG="${VNUM1}.${VNUM2}.${VNUM3}.${VNUM4}.${VNUM5}-hotfix"
 GIT_COMMIT=`git rev-parse HEAD`
 CURRENT_COMMIT_TAG=`git describe --contains $GIT_COMMIT 2>/dev/null`
 
+
 #only tag if no tag already (would be better if the git describe command above could have a silent option)
 if [ -z "$CURRENT_COMMIT_TAG" ]; then
     echo "Updating $VERSION to $NEW_TAG"
