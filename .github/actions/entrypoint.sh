@@ -39,7 +39,7 @@ else
 fi
 
 echo "File Content: $content"
-extract_string=$echo $content
+extract_string=$(echo ${content} | awk -F. -v OFS=. '{$NF=$NF+1;print}')
 echo "Extracted string: $extract_string"
 
 if [[ "$extract_string" == "" ]]; then 
