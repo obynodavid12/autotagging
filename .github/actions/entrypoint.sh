@@ -50,19 +50,20 @@ else
 fi
 
 major=$(echo $extract_string | cut -d'.' -f1) 
-major=${major:(-2)}
 minor=$(echo $extract_string | cut -d'.' -f2)
 patch=$(echo $extract_string | cut -d'.' -f3)
-build=$(echo $extract_string | cut -d'.' -f4)
+release=$(echo $extract_string | cut -d'.' -f4)
+build=$(echo $extract_string | cut -d'.' -f5)
+
 
 if [[ $build = "" ]]; then
     oldver=$(echo $major.$minor.$patch)
     patch=$(expr $patch + 1)
     newver=$(echo $major.$minor.$patch)
 else
-    oldver=$(echo $major.$minor.$patch.$build)
+    oldver=$(echo $major.$minor.$patch.$release.$build)
     build=$(expr $build + 1)
-    newver=$(echo $major.$minor.$patch.$build)
+    newver=$(echo $major.$minor.$patch.$release.$build)
 fi
 
 echo "\nOld Ver: $oldver"
