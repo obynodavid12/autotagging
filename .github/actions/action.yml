@@ -9,7 +9,7 @@ inputs:
   file_name:  # id of input
     description: 'Name of the version file'
     required: true
-    default: ''
+    default: 'version'
   tag_version: # id
     description: 'States whether to create tag for this version or not'
     required: false
