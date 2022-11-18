@@ -39,7 +39,7 @@ else
 fi
 
 echo "File Content: $content"
-extract_string=$(echo $content |  awk '/^([[:space:]])*(x|x1b-|y|y1b-|X1B-|Y1B-)?([[:blank:]])*([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{1,3})(\.([0-9]{1,5}))?[[:space:]]*$/{print $0}')
+extract_string=$echo $content
 echo "Extracted string: $extract_string"
 
 if [[ "$extract_string" == "" ]]; then 
