@@ -12,6 +12,7 @@ echo "Git Event Name: ${GITHUB_EVENT_NAME}"
 echo "\nStarting Git Operations"
 git config --global user.email "obynodavid12@gmail.com"
 git config --global user.name "Obinna"
+git config --global --add safe.directory /github/workspace
 #https://devhints.io/git-log-format
 # git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
 # git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
