@@ -42,7 +42,7 @@ jobs:
         shell: bash
         working-directory: ${{ matrix.name }}
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v3
     - name: Increment version
       id: version   
       uses: ./.github/actions/
