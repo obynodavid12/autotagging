@@ -2,7 +2,7 @@
 
 #Get the highest tag number
 VERSION=`git describe --abbrev=0 --tags`
-VERSION=${VERSION:-'0.0.0.0.0'}
+VERSION=${VERSION:-'x1b-0.0.0.0.0'}
 
 #Get number parts
 MAJOR="${VERSION%%.*}"; VERSION="${VERSION#*.}"
