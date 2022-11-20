@@ -3,7 +3,6 @@
 #get highest tag number
 VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
-
 if [ -z $VERSION ];then
     NEW_TAG="x1b-3.8.11.1.0"
     echo "No tag present."
