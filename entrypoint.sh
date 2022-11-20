@@ -10,8 +10,14 @@ echo "Git Base Ref: ${GITHUB_BASE_REF}"
 echo "Git Event Name: ${GITHUB_EVENT_NAME}"
 
 echo "\nStarting Git Operations"
-git config --global user.email "Bump-N-Tag@github-action.com"
-git config --global user.name "Bump-N-Tag App"
+git config --global user.email "obynodavid12@gmail.com"
+git config --global user.name "Obinna"
+git config --global --add safe.directory '*'
+#https://devhints.io/git-log-format
+# git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
+# git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
+# git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
 
 github_ref=""
 
@@ -44,19 +50,20 @@ else
 fi
 
 major=$(echo $extract_string | cut -d'.' -f1) 
-major=${major:(-2)}
 minor=$(echo $extract_string | cut -d'.' -f2)
 patch=$(echo $extract_string | cut -d'.' -f3)
-build=$(echo $extract_string | cut -d'.' -f4)
+release=$(echo $extract_string | cut -d'.' -f4)
+build=$(echo $extract_string | cut -d'.' -f5)
+
 
 if [[ $build = "" ]]; then
     oldver=$(echo $major.$minor.$patch)
     patch=$(expr $patch + 1)
     newver=$(echo $major.$minor.$patch)
 else
-    oldver=$(echo $major.$minor.$patch.$build)
+    oldver=$(echo $major.$minor.$patch.$release.$build)
     build=$(expr $build + 1)
-    newver=$(echo $major.$minor.$patch.$build)
+    newver=$(echo $major.$minor.$patch.$release.$build)
 fi
 
 echo "\nOld Ver: $oldver"
@@ -75,5 +82,5 @@ echo "Git Push"
 git push --follow-tags "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:$github_ref
 
 
-echo "\nEnd of Action\n\n"
+echo "End of Action"
 exit 0
