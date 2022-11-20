@@ -15,7 +15,7 @@ CURRENT_VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
 if [[ $CURRENT_VERSION == '' ]]
 then
-  CURRENT_VERSION='y1b-1.0.0.0.0'
+  CURRENT_VERSION=''
 fi
 echo "Current Version: $CURRENT_VERSION"
 
