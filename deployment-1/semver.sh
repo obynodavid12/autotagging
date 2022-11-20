@@ -4,7 +4,7 @@
 VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
 if [ -z $VERSION ];then
-    NEW_TAG="y1b3.8.11.1.0"
+    NEW_TAG="y1b-3.8.11.1.0"
     echo "No tag present."
     echo "Creating tag: $NEW_TAG"
     git tag $NEW_TAG 
