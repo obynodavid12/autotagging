@@ -6,10 +6,9 @@ VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 
 if [ -z $VERSION ];then
     NEW_TAG="x1b-3.8.11.1.0"
-    RELEASEDATE="$(date '+%Y%m%d%H%M')
     echo "No tag present."
     echo "Creating tag: $NEW_TAG"
-    git tag -a $NEW_TAG -m "$RELEASEDATE"
+    git tag $NEW_TAG 
     git push --tags
     echo "Tag created and pushed: $NEW_TAG"
     exit 0;
