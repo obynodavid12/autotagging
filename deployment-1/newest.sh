@@ -1,5 +1,4 @@
 #!/bin/sh
-
 #Get the highest tag number
 VERSION=`git describe --abbrev=0 --tags`
 VERSION=${VERSION:-'x1b-0.0.0.0.0'}
