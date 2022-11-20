@@ -49,8 +49,8 @@ jobs:
       - name: Checking the folder name
         run: |
          echo "Running for folder ${{ matrix.name }}"   
-         chmod +x ./semver.sh
-         ./semver.sh  
+         chmod +x ./newest.sh
+         ./newest.sh  
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
      
