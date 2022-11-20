@@ -32,6 +32,9 @@ VNUM5=${CURRENT_VERSION_PARTS[4]}
 VNUM5=$((VNUM5+1))
 
 #create new tag
+git config --global user.name "$(git --no-pager log --format=format:'%an' -n 1)"
+git config --global user.email "$(git --no-pager log --format=format:'%ae' -n 1)"
+git config --global --add safe.directory "$GITHUB_WORKSPACE"
 NEW_TAG="$VNUM1.$VNUM2.$VNUM3.${VNUM4}.${VNUM5}"
 echo "($VERSION) updating $CURRENT_VERSION to $NEW_TAG"
 
