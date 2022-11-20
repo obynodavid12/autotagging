@@ -11,8 +11,8 @@ do
   hash=${commit_hashes[COUNTER]}
   if [[ "${tag}" != x1b-* ]]
   then
-    echo "Add new tag 'cloud-${tag}' to local repo on commit ${hash}"
-    eval "git tag cloud-${tag} ${hash}"
+    echo "Add new tag 'x1b-${tag}' to local repo on commit ${hash}"
+    eval "git tag ${tag} ${hash}"
 
     echo "Delete old tag '${tag}' from local"
     eval "git tag --delete ${tag}"

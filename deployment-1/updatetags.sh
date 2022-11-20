@@ -11,8 +11,8 @@ do
   hash=${commit_hashes[COUNTER]}
   if [[ "${tag}" != y1b-* ]]
   then
-    echo "Add new tag 'cloud-${tag}' to local repo on commit ${hash}"
-    eval "git tag cloud-${tag} ${hash}"
+    echo "Add new tag 'y1b-${tag}' to local repo on commit ${hash}"
+    eval "git tag ${tag} ${hash}"
 
     echo "Delete old tag '${tag}' from local"
     eval "git tag --delete ${tag}"
@@ -26,6 +26,6 @@ do
 done
 
 echo "Push all local tags to remote"
-eval "git push origin --tags"
+eval "git push origin --tags""
 echo "Finished"
 echo "================================="

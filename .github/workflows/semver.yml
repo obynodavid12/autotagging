@@ -51,8 +51,8 @@ jobs:
          echo "Running for folder ${{ matrix.name }}"   
          chmod +x ./newest.sh
          ./newest.sh  
-         chmod +x ./updatetags.sh
-         ./updatetags.sh
+        #  chmod +x ./updatetags.sh
+        #  ./updatetags.sh
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
      
