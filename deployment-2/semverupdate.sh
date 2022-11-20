@@ -1,5 +1,4 @@
 #!/bin/bash
-
 VERSION=""
 
 #get parameters
