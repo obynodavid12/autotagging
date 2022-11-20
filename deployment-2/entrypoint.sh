@@ -1,9 +1,9 @@
 #!/bin/sh -l
 set -e
 
-file_name=$1
-tag_version=$2
-echo "\nInput file name: $file_name : $tag_version"
+file_name=VERSION
+#tag_version=$2
+echo "\nInput file name: $file_name"
 
 echo "Git Head Ref: ${GITHUB_HEAD_REF}"
 echo "Git Base Ref: ${GITHUB_BASE_REF}"
@@ -74,7 +74,7 @@ echo $newcontent > $file_name
 
 git add -A 
 git commit -m "Incremented to ${newver}"  -m "[skip ci]"
-([ -n "$tag_version" ] && [ "$tag_version" = "true" ]) && (git tag -a "${newver}" -m "[skip ci]") || echo "No tag created"
+([ -n "$file_name" ] && [ "$file_name" = "true" ]) && (git tag -a "${newver}" -m "[skip ci]") || echo "No tag created"
 
 git show-ref
 echo "Git Push"
