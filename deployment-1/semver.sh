@@ -1,5 +1,4 @@
 #!/bin/bash
-
 #get highest tag number
 #VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
 VERSION=`git describe --tags --abbrev=0 | awk -F. '{OFS="."; $NF+=1; print $0}'`
