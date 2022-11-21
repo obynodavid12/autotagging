@@ -1,7 +1,7 @@
 #!/bin/bash
 #get highest tag number
-#VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
-VERSION=`git describe --tags --abbrev=0 | awk -F. '{OFS="."; $NF+=1; print $0}'`
+VERSION=`git describe --abbrev=0 --tags 2>/dev/null`
+#VERSION=`git describe --tags --abbrev=0 | awk -F. '{OFS="."; $NF+=1; print $0}'`
 
 if [ -z $VERSION ];then
     NEW_TAG="y1b-3.8.11.1.0"
